@@ -1,0 +1,54 @@
+# PolyPulse Practice
+
+[日本語](README.ja.md) / [English](README.en.md) / [Español](README.es.md)
+
+アプリを開く:
+
+https://luckyluuue.github.io/tempo_master/
+
+右手と左手で異なる分割を刻む、ポリリズムとメトロノーム練習用のPWAです。
+
+## 使い方
+
+上部の `ポリリズム` / `メトロノーム` で練習モードを切り替えられます。BPMと拍子は両方のモードで共通です。
+
+ポリリズムでは、打数を変えると右手/左手それぞれの刻み数が変わります。再生モードは `両手` / `右手だけ` / `左手だけ` を切り替えられます。
+
+メトロノームでは、細分、音色、1拍目のアクセントを切り替えられます。
+
+設定値はブラウザに保存され、次回起動時の初期値として復元されます。再生中かどうかは保存されません。
+
+## ローカル確認
+
+```bash
+python -m http.server 8000
+```
+
+その後、ブラウザで `http://localhost:8000/` を開きます。
+
+## Android
+
+Androidへのインストール手順は [android-install.md](android-install.md) にまとめています。
+
+## GitHub Pages
+
+GitHub Pagesで公開する手順は [github-pages.md](github-pages.md) にまとめています。
+
+## 構成
+
+```text
+index.html
+ja/
+en/
+es/
+styles.css
+app.js
+src/
+  main.js
+  rhythmEngine.js
+  settings.js
+  soundProfiles.js
+  timing.js
+  ui.js
+  i18n.js
+```
