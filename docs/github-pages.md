@@ -15,7 +15,7 @@ GitHubで新しいリポジトリを作成します。
 おすすめ設定:
 
 ```text
-Repository name: polypulse-practice
+Repository name: tempo_master
 Visibility: Public
 Initialize this repository with README: Off
 ```
@@ -31,7 +31,7 @@ git init
 git branch -M main
 git add .nojekyll README.md index.html styles.css app.js manifest.webmanifest service-worker.js src assets docs
 git commit -m "Prepare PWA for GitHub Pages"
-git remote add origin https://github.com/<GitHubユーザー名>/polypulse-practice.git
+git remote add origin https://github.com/luckyluuue/tempo_master.git
 git push -u origin main
 ```
 
@@ -59,7 +59,7 @@ GitHub上でリポジトリを開きます。
 公開URLをAndroid Chromeで開きます。
 
 ```text
-https://<GitHubユーザー名>.github.io/polypulse-practice/
+https://luckyluuue.github.io/tempo_master/
 ```
 
 Chromeの右上メニューから `アプリをインストール` または `ホーム画面に追加` を選びます。
