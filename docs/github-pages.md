@@ -67,9 +67,10 @@ https://luckyluuue.github.io/tempo_master/
 ```text
 https://luckyluuue.github.io/tempo_master/ja/
 https://luckyluuue.github.io/tempo_master/en/
+https://luckyluuue.github.io/tempo_master/es/
 ```
 
-ルートURLはブラウザ言語に応じて自動的に日本語または英語へ移動します。
+ルートURLはブラウザ言語に応じて自動的に日本語、英語、スペイン語へ移動します。
 
 Chromeの右上メニューから `アプリをインストール` または `ホーム画面に追加` を選びます。
 

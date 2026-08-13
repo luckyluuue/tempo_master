@@ -6,17 +6,27 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://luckyluuue.github.io/tempo_master/es/" />
   </url>
   <url>
     <loc>https://luckyluuue.github.io/tempo_master/ja/</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://luckyluuue.github.io/tempo_master/es/" />
   </url>
   <url>
     <loc>https://luckyluuue.github.io/tempo_master/en/</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://luckyluuue.github.io/tempo_master/es/" />
+  </url>
+  <url>
+    <loc>https://luckyluuue.github.io/tempo_master/es/</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://luckyluuue.github.io/tempo_master/es/" />
   </url>
 </urlset>

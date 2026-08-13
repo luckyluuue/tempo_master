@@ -9,6 +9,7 @@
     <link rel="canonical" href="https://luckyluuue.github.io/tempo_master/">
     <link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/">
     <link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/">
+    <link rel="alternate" hreflang="es" href="https://luckyluuue.github.io/tempo_master/es/">
     <link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
@@ -47,16 +48,16 @@
       }
     </style>
     <script>
-      const language = navigator.language || navigator.userLanguage || "en";
-      const target = language.toLowerCase().startsWith("ja") ? "ja/" : "en/";
+      const language = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+      const target = language.startsWith("ja") ? "ja/" : language.startsWith("es") ? "es/" : "en/";
       window.location.replace(target);
     </script>
   </head>
   <body>
     <main>
       <h1>PolyPulse Practice</h1>
-      <p>Choose a language / 言語を選択してください</p>
-      <p><a href="ja/">日本語</a> · <a href="en/">English</a></p>
+      <p>Choose a language / 言語を選択してください / Elige un idioma</p>
+      <p><a href="ja/">日本語</a> · <a href="en/">English</a> · <a href="es/">Español</a></p>
     </main>
   </body>
 </html>
