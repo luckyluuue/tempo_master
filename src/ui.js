@@ -1,4 +1,5 @@
 import { clampInteger } from "./settings.js";
+import { getCopy } from "./i18n.js";
 
 export const ids = [
   "playButton",
@@ -40,8 +41,9 @@ export function getUi() {
 }
 
 export function setPlayState(ui, isPlaying) {
+  const copy = getCopy();
   ui.playButton.classList.toggle("is-playing", isPlaying);
-  ui.playButton.textContent = isPlaying ? "一時停止" : "再生";
+  ui.playButton.textContent = isPlaying ? copy.pause : copy.play;
   ui.playButton.setAttribute("aria-pressed", String(isPlaying));
 }
 
@@ -51,6 +53,7 @@ export function setPlayhead(ui, progress) {
 }
 
 export function renderAll(ui, settings) {
+  const copy = getCopy();
   const isMetronome = settings.appMode === "metronome";
   ui.polyrhythmView.classList.toggle("is-active", !isMetronome);
   ui.metronomeView.classList.toggle("is-active", isMetronome);
@@ -60,11 +63,11 @@ export function renderAll(ui, settings) {
   renderCombined(ui, settings);
   renderMetronome(ui, settings);
 
-  ui.ratioLabel.value = `右${settings.right.count} / 左${settings.left.count}`;
+  ui.ratioLabel.value = copy.ratio(settings.right.count, settings.left.count);
   ui.cycleLabel.textContent =
     settings.cycleMode === "beat"
-      ? `1拍の中の ${settings.right.count} : ${settings.left.count}`
-      : `1小節の中の ${settings.right.count} : ${settings.left.count}`;
+      ? copy.cycleBeat(settings.right.count, settings.left.count)
+      : copy.cycleBar(settings.right.count, settings.left.count);
 }
 
 function renderLane(container, lane, isRight) {
@@ -82,6 +85,7 @@ function renderLane(container, lane, isRight) {
 }
 
 function renderCombined(ui, settings) {
+  const copy = getCopy();
   const oldDots = ui.combinedTimeline.querySelectorAll(".combined-dot");
   oldDots.forEach((dot) => dot.remove());
 
@@ -91,11 +95,11 @@ function renderCombined(ui, settings) {
   const leftPositions = activePositions(settings.left);
 
   rightPositions.forEach((position, index) => {
-    addCombinedDot(ui, position, "right", "34%", `R${index + 1}`, coincides(position, leftPositions));
+    addCombinedDot(ui, position, "right", "34%", `${copy.rightShort}${index + 1}`, coincides(position, leftPositions));
   });
 
   leftPositions.forEach((position, index) => {
-    addCombinedDot(ui, position, "left", "66%", `L${index + 1}`, coincides(position, rightPositions));
+    addCombinedDot(ui, position, "left", "66%", `${copy.leftShort}${index + 1}`, coincides(position, rightPositions));
   });
 
   ui.combinedTimeline.style.backgroundSize = `${100 / Math.max(rightCount, leftCount)}% 100%, auto, auto`;
@@ -127,6 +131,7 @@ function addCombinedDot(ui, position, side, y, label, isCoincident) {
 }
 
 function renderMetronome(ui, settings) {
+  const copy = getCopy();
   const oldDots = ui.metronomeTimeline.querySelectorAll(".metronome-dot");
   oldDots.forEach((dot) => dot.remove());
 
@@ -147,6 +152,6 @@ function renderMetronome(ui, settings) {
   }
 
   ui.metronomeLabel.textContent = `${settings.beatsPerBar}/${settings.beatUnit}・${subdivisionLabel}`;
-  ui.metronomeRatioLabel.value = `${settings.beatsPerBar}拍`;
+  ui.metronomeRatioLabel.value = copy.beats(settings.beatsPerBar);
   ui.metronomeTimeline.style.backgroundSize = `${100 / totalSteps}% 100%, auto`;
 }

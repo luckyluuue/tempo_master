@@ -34,6 +34,8 @@ Androidへのインストール手順は [docs/android-install.md](docs/android-
 
 GitHub Pagesで公開する手順は [docs/github-pages.md](docs/github-pages.md) にまとめています。
 
+GitHub Pagesでは `/ja/` と `/en/` の言語別URLを公開し、ルート `/` はブラウザ言語に応じて自動的に振り分けます。
+
 ## 構成
 
 ```text

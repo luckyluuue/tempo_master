@@ -62,6 +62,15 @@ GitHub上でリポジトリを開きます。
 https://luckyluuue.github.io/tempo_master/
 ```
 
+日本語ページと英語ページは次のURLです。
+
+```text
+https://luckyluuue.github.io/tempo_master/ja/
+https://luckyluuue.github.io/tempo_master/en/
+```
+
+ルートURLはブラウザ言語に応じて自動的に日本語または英語へ移動します。
+
 Chromeの右上メニューから `アプリをインストール` または `ホーム画面に追加` を選びます。
 
 ## 更新したとき

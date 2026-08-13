@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#121314">
+    <meta name="description" content="ポリリズムとメトロノームを練習する個人用リズムツール">
+    <title>PolyPulse Practice - ポリリズム練習ツール</title>
+    <link rel="canonical" href="https://luckyluuue.github.io/tempo_master/ja/">
+    <link rel="alternate" hreflang="ja" href="https://luckyluuue.github.io/tempo_master/ja/">
+    <link rel="alternate" hreflang="en" href="https://luckyluuue.github.io/tempo_master/en/">
+    <link rel="alternate" hreflang="x-default" href="https://luckyluuue.github.io/tempo_master/">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>PolyPulse Practice</h1>
+        </div>
+        <div class="transport" aria-label="再生コントロール">
+          <button id="playButton" class="primary-button" type="button" aria-pressed="false">再生</button>
+        </div>
+      </header>
+
+      <section class="control-band common-controls" aria-label="テンポと拍子">
+        <label class="field tempo-field">
+          <span>BPM</span>
+          <input id="bpmRange" type="range" min="30" max="180" step="1" value="72">
+          <input id="bpmNumber" class="number-input" type="number" min="30" max="240" step="1" value="72">
+        </label>
+
+        <div class="field compact-field">
+          <span>拍子</span>
+          <div class="inline-fields">
+            <input id="beatsPerBar" class="number-input" type="number" min="1" max="16" step="1" value="4" aria-label="拍数">
+            <span class="fraction-mark">/</span>
+            <select id="beatUnit" aria-label="音価">
+              <option value="4" selected>4</option>
+              <option value="8">8</option>
+              <option value="2">2</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="app-mode-tabs" aria-label="練習モード">
+        <button class="tab-button is-active" type="button" data-app-mode="poly" aria-pressed="true">ポリリズム</button>
+        <button class="tab-button" type="button" data-app-mode="metronome" aria-pressed="false">メトロノーム</button>
+      </section>
+
+      <section id="polyrhythmView" class="practice-view is-active" aria-label="ポリリズム練習">
+        <section class="sub-control-band" aria-label="ポリリズム設定">
+          <label class="field compact-field">
+            <span>周期</span>
+            <select id="cycleMode">
+              <option value="beat" selected>1拍</option>
+              <option value="bar">1小節</option>
+            </select>
+          </label>
+
+          <label class="toggle-field">
+            <input id="meterEnabled" type="checkbox">
+            <span>拍クリック</span>
+          </label>
+        </section>
+
+        <section class="mode-strip" aria-label="再生する手">
+          <button class="mode-button is-active" type="button" data-play-mode="both" aria-pressed="true">両手</button>
+          <button class="mode-button" type="button" data-play-mode="right" aria-pressed="false">右手だけ</button>
+          <button class="mode-button" type="button" data-play-mode="left" aria-pressed="false">左手だけ</button>
+        </section>
+
+        <section class="lanes" aria-label="右手と左手のリズム">
+          <article class="lane-panel lane-right">
+            <div class="lane-heading">
+              <div>
+                <p class="lane-kicker">Right hand</p>
+                <h2>右手</h2>
+              </div>
+            </div>
+            <div class="lane-controls">
+              <label class="field">
+                <span>打数</span>
+                <input id="rightCount" class="number-input" type="number" min="1" max="32" step="1" value="3">
+              </label>
+              <label class="field">
+                <span>音色</span>
+                <select id="rightSound">
+                  <option value="bright" selected>Bright</option>
+                  <option value="wood">Wood</option>
+                  <option value="bell">Bell</option>
+                </select>
+              </label>
+            </div>
+            <div id="rightTimeline" class="timeline-row" aria-label="右手タイムライン"></div>
+          </article>
+
+          <article class="lane-panel lane-left">
+            <div class="lane-heading">
+              <div>
+                <p class="lane-kicker">Left hand</p>
+                <h2>左手</h2>
+              </div>
+            </div>
+            <div class="lane-controls">
+              <label class="field">
+                <span>打数</span>
+                <input id="leftCount" class="number-input" type="number" min="1" max="32" step="1" value="2">
+              </label>
+              <label class="field">
+                <span>音色</span>
+                <select id="leftSound">
+                  <option value="low">Low</option>
+                  <option value="soft">Soft</option>
+                  <option value="wood" selected>Wood</option>
+                </select>
+              </label>
+            </div>
+            <div id="leftTimeline" class="timeline-row" aria-label="左手タイムライン"></div>
+          </article>
+        </section>
+
+        <section class="visual-band" aria-label="リズム表示">
+          <div class="cycle-header">
+            <div>
+              <p class="eyebrow">Cycle</p>
+              <h2 id="cycleLabel">1拍の中の 3 : 2</h2>
+            </div>
+            <output id="ratioLabel" class="ratio-pill">右3 / 左2</output>
+          </div>
+          <div id="combinedTimeline" class="combined-timeline">
+            <div id="playhead" class="playhead" aria-hidden="true"></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="metronomeView" class="practice-view" aria-label="メトロノーム">
+        <section class="metronome-panel">
+          <div class="metronome-controls">
+            <label class="field">
+              <span>細分</span>
+              <select id="metronomeSubdivision">
+                <option value="1" selected>4分</option>
+                <option value="2">8分</option>
+                <option value="3">3連</option>
+                <option value="4">16分</option>
+                <option value="6">6連</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>音色</span>
+              <select id="metronomeSound">
+                <option value="meter" selected>Click</option>
+                <option value="wood">Wood</option>
+                <option value="bright">Bright</option>
+              </select>
+            </label>
+            <label class="toggle-field">
+              <input id="metronomeAccent" type="checkbox" checked>
+              <span>1拍目を強調</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="visual-band" aria-label="メトロノーム表示">
+          <div class="cycle-header">
+            <div>
+              <p class="eyebrow">Bar</p>
+              <h2 id="metronomeLabel">4/4・4分</h2>
+            </div>
+            <output id="metronomeRatioLabel" class="ratio-pill">4拍</output>
+          </div>
+          <div id="metronomeTimeline" class="metronome-timeline">
+            <div id="metronomePlayhead" class="playhead" aria-hidden="true"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="../app.js"></script>
+  </body>
+</html>

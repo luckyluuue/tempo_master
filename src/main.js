@@ -78,7 +78,7 @@ window.addEventListener("beforeunload", () => {
 });
 
 if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
-  navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  navigator.serviceWorker.register(new URL("../service-worker.js", import.meta.url)).catch(() => {});
 }
 
 loadSettings(ui);
