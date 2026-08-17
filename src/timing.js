@@ -7,7 +7,7 @@ export function getBeatDuration(settings) {
 export function getCycleDuration(settings) {
   const beatDuration = getBeatDuration(settings);
   if (settings.appMode === "arabesque") {
-    return getArabesqueSequence(settings.arabesque.startMeasure, settings.arabesque.loopMeasures).reduce(
+    return getArabesqueSequence(settings.arabesque.startMeasure).reduce(
       (duration, measure) => duration + measure.beats * beatDuration,
       0,
     );

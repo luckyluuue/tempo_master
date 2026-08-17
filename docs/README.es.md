@@ -16,17 +16,18 @@ En el modo Polirritmo, cambiar la cantidad modifica el número de pulsos de la m
 
 En el modo Metrónomo, puedes cambiar la subdivisión, el sonido y el acento del primer pulso.
 
-En el modo Arabesque No.1, elige un compás inicial y una longitud de bucle para reproducir solo las posiciones rítmicas de la mano derecha e izquierda. Los datos rítmicos por compás están definidos en `src/arabesqueData.js`.
+En el modo Arabesque No.1, haz clic en un compás de la partitura mostrada para reproducir solo las posiciones rítmicas de la mano derecha e izquierda desde ese compás hasta el final del fragmento registrado. Los datos rítmicos y las zonas clicables están definidos en `src/arabesqueData.js`.
 
 Los ajustes se guardan en el navegador y se restauran la próxima vez que abras la aplicación. El estado de reproducción no se guarda.
 
 ## Vista local
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Después abre `http://localhost:8000/` en el navegador.
+Después abre la URL mostrada en el navegador. Para abrir la página japonesa directamente, usa `http://127.0.0.1:5173/ja/`.
 
 ## Android
 

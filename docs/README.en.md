@@ -16,17 +16,18 @@ In Polyrhythm mode, changing the count changes the number of pulses for the righ
 
 In Metronome mode, you can change the subdivision, sound, and first-beat accent.
 
-In Arabesque No.1 mode, choose a start bar and loop length to play only the right and left hand rhythm positions. Per-bar rhythm data is defined in `src/arabesqueData.js`.
+In Arabesque No.1 mode, click a bar on the displayed score to play only the right and left hand rhythm positions from that bar to the end of the registered excerpt. Per-bar rhythm data and score hit areas are defined in `src/arabesqueData.js`.
 
 Settings are saved in the browser and restored the next time the app opens. Playback state is not saved.
 
 ## Local Preview
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8000/` in your browser.
+Then open the displayed URL in your browser. To open the Japanese page directly, use `http://127.0.0.1:5173/ja/`.
 
 ## Android
 

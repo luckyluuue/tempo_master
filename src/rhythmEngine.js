@@ -14,6 +14,7 @@ export class RhythmEngine {
     this.nextCycleStart = 0;
     this.cycleIndex = 0;
     this.cycleDuration = 0;
+    this.stopAtTime = 0;
     this.scheduledTicks = [];
     this.lookaheadMs = 24;
     this.scheduleAheadSec = 0.16;
@@ -41,6 +42,7 @@ export class RhythmEngine {
     this.nextCycleStart = this.startTime;
     this.cycleIndex = 0;
     this.cycleDuration = getCycleDuration(settings);
+    this.stopAtTime = settings.appMode === "arabesque" ? this.startTime + this.cycleDuration : 0;
     this.timer = window.setInterval(() => this.scheduler(), this.lookaheadMs);
     this.scheduler();
   }
@@ -52,6 +54,7 @@ export class RhythmEngine {
     }
 
     this.isPlaying = false;
+    this.stopAtTime = 0;
     this.cancelScheduledTicks(-Infinity);
     if (resetUi) {
       this.callbacks.onStop?.();
@@ -71,6 +74,7 @@ export class RhythmEngine {
     this.cancelScheduledTicks(now + 0.006);
     this.cycleDuration = nextCycleDuration;
     this.startTime = now - progress * nextCycleDuration;
+    this.stopAtTime = settings.appMode === "arabesque" ? this.startTime + nextCycleDuration : 0;
     this.cycleIndex = Math.floor(Math.max(0, (now - this.startTime) / nextCycleDuration));
     this.nextCycleStart = this.startTime + this.cycleIndex * nextCycleDuration;
     this.scheduler();
@@ -86,7 +90,12 @@ export class RhythmEngine {
     const horizon = this.audioContext.currentTime + this.scheduleAheadSec;
     const minTime = this.audioContext.currentTime + 0.012;
 
-    while (this.nextCycleStart < horizon) {
+    if (this.stopAtTime && this.audioContext.currentTime >= this.stopAtTime + 0.02) {
+      this.stop();
+      return;
+    }
+
+    while (this.nextCycleStart < horizon && (!this.stopAtTime || this.nextCycleStart < this.stopAtTime)) {
       this.scheduleCycle(this.nextCycleStart, this.cycleDuration, settings, this.cycleIndex, minTime);
       this.nextCycleStart += this.cycleDuration;
       this.cycleIndex += 1;
@@ -170,7 +179,7 @@ export class RhythmEngine {
 
   scheduleArabesque(cycleStart, settings, minTime) {
     const beatDuration = getBeatDuration(settings);
-    const measures = getArabesqueSequence(settings.arabesque.startMeasure, settings.arabesque.loopMeasures);
+    const measures = getArabesqueSequence(settings.arabesque.startMeasure);
     let measureStart = cycleStart;
 
     measures.forEach((measure) => {
@@ -222,6 +231,10 @@ export class RhythmEngine {
 
     const duration = this.cycleDuration || getCycleDuration(this.getSettings());
     const elapsed = Math.max(0, this.audioContext.currentTime - this.startTime);
+    if (this.getSettings().appMode === "arabesque") {
+      return Math.min(1, elapsed / duration);
+    }
+
     return (elapsed % duration) / duration;
   }
 

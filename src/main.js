@@ -7,7 +7,7 @@ initializeUi(ui);
 const engine = new RhythmEngine(() => readSettings(ui), {
   onStop: () => {
     setPlayState(ui, false);
-    setPlayhead(ui, 0);
+    setPlayhead(ui, 0, readSettings(ui));
   },
 });
 
@@ -24,7 +24,7 @@ function handleSettingsChange() {
 }
 
 function animate() {
-  setPlayhead(ui, engine.getCycleProgress());
+  setPlayhead(ui, engine.getCycleProgress(), readSettings(ui));
   animationFrame = window.requestAnimationFrame(animate);
 }
 
@@ -72,7 +72,20 @@ document.querySelectorAll("[data-app-mode]").forEach((button) => {
   });
 });
 
-window.addEventListener("resize", () => setPlayhead(ui, engine.getCycleProgress()));
+ui.arabesqueScoreLayer.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-measure]");
+  if (!button) {
+    return;
+  }
+
+  setSegmentedSelection("[data-app-mode]", "appMode", "arabesque");
+  ui.arabesqueStartMeasure.value = button.dataset.measure;
+  handleSettingsChange();
+  await engine.start();
+  setPlayState(ui, true);
+});
+
+window.addEventListener("resize", () => setPlayhead(ui, engine.getCycleProgress(), readSettings(ui)));
 window.addEventListener("beforeunload", () => {
   engine.stop(false);
   window.cancelAnimationFrame(animationFrame);

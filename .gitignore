@@ -1,3 +1,5 @@
 .chrome-*/
 .gitconfig-local
 mobile-*.png
+node_modules/
+dist/

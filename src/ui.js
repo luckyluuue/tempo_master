@@ -1,5 +1,10 @@
 import { clampInteger } from "./settings.js";
-import { arabesqueMeasures, getArabesqueSequence } from "./arabesqueData.js";
+import {
+  arabesqueMeasures,
+  arabesqueScorePages,
+  getArabesqueScorePosition,
+  getArabesqueSequence,
+} from "./arabesqueData.js";
 import { getCopy } from "./i18n.js";
 
 export const ids = [
@@ -31,11 +36,12 @@ export const ids = [
   "metronomeLabel",
   "metronomeRatioLabel",
   "arabesqueStartMeasure",
-  "arabesqueLoopMeasures",
   "arabesqueTimeline",
   "arabesquePlayhead",
   "arabesqueLabel",
   "arabesqueRatioLabel",
+  "arabesqueScoreLayer",
+  "arabesqueScorePlayhead",
 ];
 
 export function getUi() {
@@ -59,10 +65,11 @@ export function setPlayState(ui, isPlaying) {
   ui.playButton.setAttribute("aria-pressed", String(isPlaying));
 }
 
-export function setPlayhead(ui, progress) {
+export function setPlayhead(ui, progress, settings) {
   ui.playhead.style.transform = `translateX(${progress * ui.combinedTimeline.clientWidth}px)`;
   ui.metronomePlayhead.style.transform = `translateX(${progress * ui.metronomeTimeline.clientWidth}px)`;
   ui.arabesquePlayhead.style.transform = `translateX(${progress * ui.arabesqueTimeline.clientWidth}px)`;
+  setScorePlayhead(ui, progress, settings);
 }
 
 export function renderAll(ui, settings) {
@@ -79,6 +86,7 @@ export function renderAll(ui, settings) {
   renderCombined(ui, settings);
   renderMetronome(ui, settings);
   renderArabesque(ui, settings);
+  renderArabesqueScore(ui, settings);
 
   ui.ratioLabel.value = copy.ratio(settings.right.count, settings.left.count);
   ui.cycleLabel.textContent =
@@ -198,7 +206,7 @@ function renderArabesque(ui, settings) {
   const oldDots = ui.arabesqueTimeline.querySelectorAll(".arabesque-dot, .measure-line");
   oldDots.forEach((dot) => dot.remove());
 
-  const measures = getArabesqueSequence(settings.arabesque.startMeasure, settings.arabesque.loopMeasures);
+  const measures = getArabesqueSequence(settings.arabesque.startMeasure);
   const totalBeats = measures.reduce((sum, measure) => sum + measure.beats, 0);
   let beatCursor = 0;
 
@@ -219,6 +227,48 @@ function renderArabesque(ui, settings) {
   ui.arabesqueLabel.textContent = copy.arabesqueRange(measures[0].number, measures[measures.length - 1].number);
   ui.arabesqueRatioLabel.value = copy.measures(measures.length);
   ui.arabesqueTimeline.style.backgroundSize = `${100 / Math.max(1, totalBeats)}% 100%, auto, auto`;
+}
+
+function renderArabesqueScore(ui, settings) {
+  const copy = getCopy();
+
+  if (!ui.arabesqueScoreLayer.childElementCount) {
+    arabesqueScorePages[0].measures.forEach((measure) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "score-measure-button";
+      button.dataset.measure = String(measure.number);
+      button.style.setProperty("--x", String(measure.x));
+      button.style.setProperty("--y", String(measure.y));
+      button.style.setProperty("--w", String(measure.width));
+      button.style.setProperty("--h", String(measure.height));
+      button.setAttribute("aria-label", copy.measure(measure.number));
+      button.textContent = String(measure.number);
+      ui.arabesqueScoreLayer.append(button);
+    });
+  }
+
+  ui.arabesqueScoreLayer.querySelectorAll(".score-measure-button").forEach((button) => {
+    button.classList.toggle("is-selected", button.dataset.measure === String(settings.arabesque.startMeasure));
+  });
+}
+
+function setScorePlayhead(ui, progress, settings) {
+  if (!settings || settings.appMode !== "arabesque") {
+    ui.arabesqueScorePlayhead.classList.add("is-hidden");
+    return;
+  }
+
+  const position = getArabesqueScorePosition(settings.arabesque.startMeasure, progress);
+  if (!position) {
+    ui.arabesqueScorePlayhead.classList.add("is-hidden");
+    return;
+  }
+
+  ui.arabesqueScorePlayhead.classList.remove("is-hidden");
+  ui.arabesqueScorePlayhead.style.setProperty("--x", String(position.x));
+  ui.arabesqueScorePlayhead.style.setProperty("--y", String(position.y));
+  ui.arabesqueScorePlayhead.style.setProperty("--h", String(position.height));
 }
 
 function addArabesqueDot(ui, position, side, y, label) {

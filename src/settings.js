@@ -36,7 +36,6 @@ export function readSettings(ui) {
     },
     arabesque: {
       startMeasure: clampInteger(ui.arabesqueStartMeasure.value, 1, 200),
-      loopMeasures: clampInteger(ui.arabesqueLoopMeasures.value, 1, 16),
     },
   };
 }
@@ -62,7 +61,6 @@ export function saveSettings(ui) {
       metronomeSound: settings.metronome.sound,
       metronomeAccent: settings.metronome.accentDownbeat,
       arabesqueStartMeasure: settings.arabesque.startMeasure,
-      arabesqueLoopMeasures: settings.arabesque.loopMeasures,
     }),
   );
 }
@@ -87,7 +85,6 @@ export function loadSettings(ui) {
     setInputValue(ui.metronomeSubdivision, settings.metronomeSubdivision);
     setInputValue(ui.metronomeSound, settings.metronomeSound);
     setInputValue(ui.arabesqueStartMeasure, settings.arabesqueStartMeasure);
-    setInputValue(ui.arabesqueLoopMeasures, settings.arabesqueLoopMeasures);
     ui.meterEnabled.checked = Boolean(settings.meterEnabled);
     ui.metronomeAccent.checked = settings.metronomeAccent !== false;
     setSegmentedSelection("[data-app-mode]", "appMode", settings.appMode || "poly");

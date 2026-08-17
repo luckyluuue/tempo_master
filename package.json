@@ -1,0 +1,13 @@
+{
+  "name": "tempo-master",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "check": "node --check src/arabesqueData.js && node --check src/i18n.js && node --check src/main.js && node --check src/rhythmEngine.js && node --check src/settings.js && node --check src/soundProfiles.js && node --check src/timing.js && node --check src/ui.js && node --check service-worker.js"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}

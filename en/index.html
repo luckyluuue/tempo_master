@@ -212,10 +212,16 @@
               <span>Start bar</span>
               <select id="arabesqueStartMeasure"></select>
             </label>
-            <label class="field">
-              <span>Loop</span>
-              <input id="arabesqueLoopMeasures" class="number-input" type="number" min="1" max="16" step="1" value="1">
-            </label>
+          </div>
+        </section>
+
+        <section class="score-panel" aria-label="Arabesque No.1 score">
+          <div class="score-frame">
+            <object class="score-pdf" data="../assets/scores/Arabesque_no1.pdf#toolbar=0&navpanes=0&page=1&view=FitH" type="application/pdf">
+              <a href="../assets/scores/Arabesque_no1.pdf">Arabesque No.1 PDF</a>
+            </object>
+            <div id="arabesqueScoreLayer" class="score-measure-layer" aria-label="Select a bar"></div>
+            <div id="arabesqueScorePlayhead" class="score-playhead is-hidden" aria-hidden="true"></div>
           </div>
         </section>
 
@@ -225,7 +231,7 @@
               <p class="eyebrow">Arabesque No.1</p>
               <h2 id="arabesqueLabel">Bar 1</h2>
             </div>
-            <output id="arabesqueRatioLabel" class="ratio-pill">1 bar</output>
+            <output id="arabesqueRatioLabel" class="ratio-pill">To end</output>
           </div>
           <div id="arabesqueTimeline" class="arabesque-timeline">
             <div id="arabesquePlayhead" class="playhead" aria-hidden="true"></div>
