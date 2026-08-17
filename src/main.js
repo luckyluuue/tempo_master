@@ -1,8 +1,9 @@
 import { RhythmEngine } from "./rhythmEngine.js";
-import { getUi, renderAll, setPlayhead, setPlayState } from "./ui.js";
+import { getUi, initializeUi, renderAll, setPlayhead, setPlayState } from "./ui.js";
 import { loadSettings, readSettings, saveSettings, setSegmentedSelection, syncTempo } from "./settings.js";
 
 const ui = getUi();
+initializeUi(ui);
 const engine = new RhythmEngine(() => readSettings(ui), {
   onStop: () => {
     setPlayState(ui, false);

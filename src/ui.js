@@ -1,4 +1,5 @@
 import { clampInteger } from "./settings.js";
+import { arabesqueMeasures, getArabesqueSequence } from "./arabesqueData.js";
 import { getCopy } from "./i18n.js";
 
 export const ids = [
@@ -9,6 +10,7 @@ export const ids = [
   "beatUnit",
   "polyrhythmView",
   "metronomeView",
+  "arabesqueView",
   "cycleMode",
   "meterEnabled",
   "rightCount",
@@ -28,6 +30,12 @@ export const ids = [
   "metronomePlayhead",
   "metronomeLabel",
   "metronomeRatioLabel",
+  "arabesqueStartMeasure",
+  "arabesqueLoopMeasures",
+  "arabesqueTimeline",
+  "arabesquePlayhead",
+  "arabesqueLabel",
+  "arabesqueRatioLabel",
 ];
 
 export function getUi() {
@@ -40,6 +48,10 @@ export function getUi() {
   return ui;
 }
 
+export function initializeUi(ui) {
+  populateArabesqueMeasures(ui);
+}
+
 export function setPlayState(ui, isPlaying) {
   const copy = getCopy();
   ui.playButton.classList.toggle("is-playing", isPlaying);
@@ -50,24 +62,49 @@ export function setPlayState(ui, isPlaying) {
 export function setPlayhead(ui, progress) {
   ui.playhead.style.transform = `translateX(${progress * ui.combinedTimeline.clientWidth}px)`;
   ui.metronomePlayhead.style.transform = `translateX(${progress * ui.metronomeTimeline.clientWidth}px)`;
+  ui.arabesquePlayhead.style.transform = `translateX(${progress * ui.arabesqueTimeline.clientWidth}px)`;
 }
 
 export function renderAll(ui, settings) {
   const copy = getCopy();
   const isMetronome = settings.appMode === "metronome";
-  ui.polyrhythmView.classList.toggle("is-active", !isMetronome);
+  const isArabesque = settings.appMode === "arabesque";
+  ui.polyrhythmView.classList.toggle("is-active", !isMetronome && !isArabesque);
   ui.metronomeView.classList.toggle("is-active", isMetronome);
+  ui.arabesqueView.classList.toggle("is-active", isArabesque);
 
+  populateArabesqueMeasures(ui);
   renderLane(ui.rightTimeline, settings.right, true);
   renderLane(ui.leftTimeline, settings.left, false);
   renderCombined(ui, settings);
   renderMetronome(ui, settings);
+  renderArabesque(ui, settings);
 
   ui.ratioLabel.value = copy.ratio(settings.right.count, settings.left.count);
   ui.cycleLabel.textContent =
     settings.cycleMode === "beat"
       ? copy.cycleBeat(settings.right.count, settings.left.count)
       : copy.cycleBar(settings.right.count, settings.left.count);
+}
+
+function populateArabesqueMeasures(ui) {
+  if (ui.arabesqueStartMeasure.options.length === arabesqueMeasures.length) {
+    return;
+  }
+
+  const selected = ui.arabesqueStartMeasure.dataset.pendingValue || ui.arabesqueStartMeasure.value;
+  ui.arabesqueStartMeasure.replaceChildren();
+  arabesqueMeasures.forEach((measure) => {
+    const option = document.createElement("option");
+    option.value = String(measure.number);
+    option.textContent = getCopy().measure(measure.number);
+    ui.arabesqueStartMeasure.append(option);
+  });
+
+  if (Array.from(ui.arabesqueStartMeasure.options).some((option) => option.value === selected)) {
+    ui.arabesqueStartMeasure.value = selected;
+  }
+  delete ui.arabesqueStartMeasure.dataset.pendingValue;
 }
 
 function renderLane(container, lane, isRight) {
@@ -154,4 +191,49 @@ function renderMetronome(ui, settings) {
   ui.metronomeLabel.textContent = `${settings.beatsPerBar}/${settings.beatUnit}・${subdivisionLabel}`;
   ui.metronomeRatioLabel.value = copy.beats(settings.beatsPerBar);
   ui.metronomeTimeline.style.backgroundSize = `${100 / totalSteps}% 100%, auto`;
+}
+
+function renderArabesque(ui, settings) {
+  const copy = getCopy();
+  const oldDots = ui.arabesqueTimeline.querySelectorAll(".arabesque-dot, .measure-line");
+  oldDots.forEach((dot) => dot.remove());
+
+  const measures = getArabesqueSequence(settings.arabesque.startMeasure, settings.arabesque.loopMeasures);
+  const totalBeats = measures.reduce((sum, measure) => sum + measure.beats, 0);
+  let beatCursor = 0;
+
+  measures.forEach((measure) => {
+    addMeasureLine(ui, beatCursor / totalBeats, copy.measure(measure.number));
+
+    measure.right.forEach((beatOffset, index) => {
+      addArabesqueDot(ui, (beatCursor + beatOffset) / totalBeats, "right", "34%", `${copy.rightShort}${index + 1}`);
+    });
+
+    measure.left.forEach((beatOffset, index) => {
+      addArabesqueDot(ui, (beatCursor + beatOffset) / totalBeats, "left", "66%", `${copy.leftShort}${index + 1}`);
+    });
+
+    beatCursor += measure.beats;
+  });
+
+  ui.arabesqueLabel.textContent = copy.arabesqueRange(measures[0].number, measures[measures.length - 1].number);
+  ui.arabesqueRatioLabel.value = copy.measures(measures.length);
+  ui.arabesqueTimeline.style.backgroundSize = `${100 / Math.max(1, totalBeats)}% 100%, auto, auto`;
+}
+
+function addArabesqueDot(ui, position, side, y, label) {
+  const dot = document.createElement("span");
+  dot.className = `arabesque-dot ${side}`;
+  dot.style.setProperty("--x", String(position * 100));
+  dot.style.setProperty("--y", y);
+  dot.dataset.label = label;
+  ui.arabesqueTimeline.append(dot);
+}
+
+function addMeasureLine(ui, position, label) {
+  const line = document.createElement("span");
+  line.className = "measure-line";
+  line.style.setProperty("--x", String(position * 100));
+  line.dataset.label = label;
+  ui.arabesqueTimeline.append(line);
 }

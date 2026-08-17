@@ -131,7 +131,8 @@ h2 {
 .control-band,
 .visual-band,
 .lane-panel,
-.metronome-panel {
+.metronome-panel,
+.arabesque-panel {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(29, 32, 33, 0.88);
@@ -311,7 +312,8 @@ select {
 
 .timeline-dot,
 .combined-dot,
-.metronome-dot {
+.metronome-dot,
+.arabesque-dot {
   position: absolute;
   left: calc(var(--x) * 1%);
   top: 50%;
@@ -352,11 +354,17 @@ select {
   padding: 16px;
 }
 
-.metronome-controls {
+.metronome-controls,
+.arabesque-controls {
   display: grid;
-  grid-template-columns: minmax(120px, 0.5fr) minmax(120px, 0.5fr) auto;
+  grid-template-columns: repeat(2, minmax(120px, 0.5fr));
   gap: 12px;
   align-items: end;
+}
+
+.arabesque-panel {
+  margin-top: 14px;
+  padding: 16px;
 }
 
 .cycle-header {
@@ -375,7 +383,8 @@ select {
   text-align: center;
 }
 
-.combined-timeline {
+.combined-timeline,
+.arabesque-timeline {
   position: relative;
   height: 154px;
   border: 1px solid var(--line);
@@ -400,6 +409,49 @@ select {
 
 .combined-dot {
   top: var(--y);
+}
+
+.arabesque-dot {
+  top: var(--y);
+}
+
+.arabesque-dot.right {
+  background: var(--right);
+}
+
+.arabesque-dot.left {
+  background: var(--left);
+}
+
+.arabesque-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  min-width: 20px;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.measure-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--x) * 1%);
+  width: 1px;
+  background: rgba(232, 215, 131, 0.3);
+}
+
+.measure-line::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 8px;
+  left: 7px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  white-space: nowrap;
 }
 
 .metronome-dot {
@@ -537,7 +589,8 @@ select {
   }
 
   .sub-control-band,
-  .metronome-controls {
+  .metronome-controls,
+  .arabesque-controls {
     display: grid;
     grid-template-columns: 1fr;
   }

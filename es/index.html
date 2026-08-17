@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#121314">
-    <meta name="description" content="Practica polirritmos 3:2, 4:3 y subdivisiones de metrónomo con sonidos separados para la mano derecha e izquierda.">
-    <title>Herramienta para practicar polirritmos | Metrónomo 3:2 - PolyPulse Practice</title>
-    <meta property="og:title" content="Herramienta para practicar polirritmos - PolyPulse Practice">
-    <meta property="og:description" content="Practica polirritmos 3:2, 4:3 y subdivisiones de metrónomo en el navegador.">
+    <meta name="description" content="Practica ritmos de Arabesque No.1 de Debussy, polirritmos 3:2 y 4:3, y subdivisiones de metrónomo con sonidos separados para cada mano.">
+    <title>Herramienta para Arabesque No.1 y polirritmos | Metrónomo 3:2 - PolyPulse Practice</title>
+    <meta property="og:title" content="Herramienta para Arabesque No.1 y polirritmos - PolyPulse Practice">
+    <meta property="og:description" content="Practica Arabesque No.1 de Debussy y polirritmos 3:2 con sonidos separados para cada mano.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luckyluuue.github.io/tempo_master/es/">
     <link rel="canonical" href="https://luckyluuue.github.io/tempo_master/es/">
@@ -27,7 +27,7 @@
         "applicationCategory": "MusicApplication",
         "operatingSystem": "Web, Android",
         "url": "https://luckyluuue.github.io/tempo_master/es/",
-        "description": "Herramienta gratuita en el navegador para practicar polirritmos 3:2, 4:3 y subdivisiones de metrónomo.",
+        "description": "Herramienta gratuita en el navegador para practicar ritmos de Arabesque No.1 de Debussy, polirritmos 3:2, 4:3 y subdivisiones de metrónomo.",
         "inLanguage": "es",
         "isAccessibleForFree": true
       }
@@ -68,6 +68,7 @@
       <section class="app-mode-tabs" aria-label="Modo de práctica">
         <button class="tab-button is-active" type="button" data-app-mode="poly" aria-pressed="true">Polirritmo</button>
         <button class="tab-button" type="button" data-app-mode="metronome" aria-pressed="false">Metrónomo</button>
+        <button class="tab-button" type="button" data-app-mode="arabesque" aria-pressed="false">Arabesque No.1</button>
       </section>
 
       <section id="polyrhythmView" class="practice-view is-active" aria-label="Práctica de polirritmo">
@@ -197,6 +198,40 @@
           </div>
         </section>
       </section>
+
+      <section id="arabesqueView" class="practice-view" aria-label="Práctica de Arabesque No.1">
+        <section class="mode-strip" aria-label="Manos a reproducir">
+          <button class="mode-button is-active" type="button" data-play-mode="both" aria-pressed="true">Ambas</button>
+          <button class="mode-button" type="button" data-play-mode="right" aria-pressed="false">Solo derecha</button>
+          <button class="mode-button" type="button" data-play-mode="left" aria-pressed="false">Solo izquierda</button>
+        </section>
+
+        <section class="arabesque-panel">
+          <div class="arabesque-controls">
+            <label class="field">
+              <span>Compás inicial</span>
+              <select id="arabesqueStartMeasure"></select>
+            </label>
+            <label class="field">
+              <span>Bucle</span>
+              <input id="arabesqueLoopMeasures" class="number-input" type="number" min="1" max="16" step="1" value="1">
+            </label>
+          </div>
+        </section>
+
+        <section class="visual-band" aria-label="Visualización del ritmo de Arabesque No.1">
+          <div class="cycle-header">
+            <div>
+              <p class="eyebrow">Arabesque No.1</p>
+              <h2 id="arabesqueLabel">Compás 1</h2>
+            </div>
+            <output id="arabesqueRatioLabel" class="ratio-pill">1 compás</output>
+          </div>
+          <div id="arabesqueTimeline" class="arabesque-timeline">
+            <div id="arabesquePlayhead" class="playhead" aria-hidden="true"></div>
+          </div>
+        </section>
+      </section>
     </main>
 
     <article class="seo-content" aria-label="Acerca de la práctica de polirritmos">
@@ -216,6 +251,10 @@
       <h3>Metrónomo incluido</h3>
       <p>
         El modo metrónomo permite practicar negras, corcheas, tresillos, semicorcheas y seisillos. El tempo, el compás, los sonidos y los ajustes se guardan en el navegador para continuar rápidamente.
+      </p>
+      <h3>Práctica de Arabesque No.1 de Debussy</h3>
+      <p>
+        El modo Arabesque No.1 reproduce solo las posiciones rítmicas de la mano derecha e izquierda desde un compás seleccionado. Así puedes concentrarte en el tiempo y sentir los tresillos contra el movimiento de la mano izquierda.
       </p>
     </article>
 

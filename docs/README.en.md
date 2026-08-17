@@ -6,15 +6,17 @@ Open the app:
 
 https://luckyluuue.github.io/tempo_master/
 
-PolyPulse Practice is a PWA for practicing polyrhythms and metronome subdivisions.
+PolyPulse Practice is a PWA for practicing Debussy Arabesque No.1 rhythm excerpts, polyrhythms, and metronome subdivisions.
 
 ## Usage
 
-Switch between `Polyrhythm` and `Metronome` at the top of the app. BPM and meter are shared between both modes.
+Switch between `Polyrhythm`, `Metronome`, and `Arabesque No.1` at the top of the app. BPM and meter are shared across modes.
 
 In Polyrhythm mode, changing the count changes the number of pulses for the right and left hands. Playback can be switched between `Both`, `Right only`, and `Left only`.
 
 In Metronome mode, you can change the subdivision, sound, and first-beat accent.
+
+In Arabesque No.1 mode, choose a start bar and loop length to play only the right and left hand rhythm positions. Per-bar rhythm data is defined in `src/arabesqueData.js`.
 
 Settings are saved in the browser and restored the next time the app opens. Playback state is not saved.
 
@@ -45,6 +47,7 @@ styles.css
 app.js
 src/
   main.js
+  arabesqueData.js
   rhythmEngine.js
   settings.js
   soundProfiles.js

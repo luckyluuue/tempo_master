@@ -1,4 +1,5 @@
 import { clampInteger } from "./settings.js";
+import { getArabesqueSequence } from "./arabesqueData.js";
 import { soundProfiles } from "./soundProfiles.js";
 import { getBeatDuration, getCycleDuration } from "./timing.js";
 
@@ -93,6 +94,11 @@ export class RhythmEngine {
   }
 
   scheduleCycle(cycleStart, cycleDuration, settings, cycleIndex, minTime = -Infinity) {
+    if (settings.appMode === "arabesque") {
+      this.scheduleArabesque(cycleStart, settings, minTime);
+      return;
+    }
+
     if (settings.appMode === "metronome") {
       this.scheduleMetronome(cycleStart, settings, minTime);
       return;
@@ -160,6 +166,35 @@ export class RhythmEngine {
         this.tick(time, profile, accent);
       }
     }
+  }
+
+  scheduleArabesque(cycleStart, settings, minTime) {
+    const beatDuration = getBeatDuration(settings);
+    const measures = getArabesqueSequence(settings.arabesque.startMeasure, settings.arabesque.loopMeasures);
+    let measureStart = cycleStart;
+
+    measures.forEach((measure) => {
+      if (settings.playMode !== "left") {
+        this.scheduleArabesqueLane(measure.right, measureStart, beatDuration, settings.right.sound, true, minTime);
+      }
+
+      if (settings.playMode !== "right") {
+        this.scheduleArabesqueLane(measure.left, measureStart, beatDuration, settings.left.sound, false, minTime);
+      }
+
+      measureStart += measure.beats * beatDuration;
+    });
+  }
+
+  scheduleArabesqueLane(events, measureStart, beatDuration, soundName, isRight, minTime) {
+    const profile = soundProfiles[soundName] || soundProfiles[isRight ? "bright" : "wood"];
+
+    events.forEach((beatOffset) => {
+      const time = measureStart + beatOffset * beatDuration;
+      if (time >= minTime) {
+        this.tick(time, profile, 1);
+      }
+    });
   }
 
   tick(time, profile, accent = 1) {

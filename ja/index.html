@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#121314">
-    <meta name="description" content="3:2、4:3などのポリリズムとメトロノーム細分をブラウザで練習できる無料ツール。ピアノやリズム練習に使えます。">
-    <title>ポリリズム練習ツール | 3:2・メトロノーム練習 - PolyPulse Practice</title>
-    <meta property="og:title" content="ポリリズム練習ツール - PolyPulse Practice">
-    <meta property="og:description" content="3:2、4:3などのポリリズムとメトロノーム細分をブラウザで練習できます。">
+    <meta name="description" content="ドビュッシーのアラベスクNo.1、3:2・4:3などのポリリズム、メトロノーム細分をブラウザで練習できる無料ツール。">
+    <title>アラベスクNo.1・ポリリズム練習ツール | 3:2メトロノーム - PolyPulse Practice</title>
+    <meta property="og:title" content="アラベスクNo.1・ポリリズム練習ツール - PolyPulse Practice">
+    <meta property="og:description" content="ドビュッシーのアラベスクNo.1や3:2ポリリズムを、左右別々の音で練習できます。">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luckyluuue.github.io/tempo_master/ja/">
     <link rel="canonical" href="https://luckyluuue.github.io/tempo_master/ja/">
@@ -27,7 +27,7 @@
         "applicationCategory": "MusicApplication",
         "operatingSystem": "Web, Android",
         "url": "https://luckyluuue.github.io/tempo_master/ja/",
-        "description": "3:2、4:3などのポリリズムとメトロノーム細分をブラウザで練習できる無料ツールです。",
+        "description": "ドビュッシーのアラベスクNo.1、3:2・4:3などのポリリズム、メトロノーム細分をブラウザで練習できる無料ツールです。",
         "inLanguage": "ja",
         "isAccessibleForFree": true
       }
@@ -68,6 +68,7 @@
       <section class="app-mode-tabs" aria-label="練習モード">
         <button class="tab-button is-active" type="button" data-app-mode="poly" aria-pressed="true">ポリリズム</button>
         <button class="tab-button" type="button" data-app-mode="metronome" aria-pressed="false">メトロノーム</button>
+        <button class="tab-button" type="button" data-app-mode="arabesque" aria-pressed="false">Arabesque No.1</button>
       </section>
 
       <section id="polyrhythmView" class="practice-view is-active" aria-label="ポリリズム練習">
@@ -197,6 +198,40 @@
           </div>
         </section>
       </section>
+
+      <section id="arabesqueView" class="practice-view" aria-label="アラベスク No.1 練習">
+        <section class="mode-strip" aria-label="再生する手">
+          <button class="mode-button is-active" type="button" data-play-mode="both" aria-pressed="true">両手</button>
+          <button class="mode-button" type="button" data-play-mode="right" aria-pressed="false">右手だけ</button>
+          <button class="mode-button" type="button" data-play-mode="left" aria-pressed="false">左手だけ</button>
+        </section>
+
+        <section class="arabesque-panel">
+          <div class="arabesque-controls">
+            <label class="field">
+              <span>開始小節</span>
+              <select id="arabesqueStartMeasure"></select>
+            </label>
+            <label class="field">
+              <span>ループ</span>
+              <input id="arabesqueLoopMeasures" class="number-input" type="number" min="1" max="16" step="1" value="1">
+            </label>
+          </div>
+        </section>
+
+        <section class="visual-band" aria-label="アラベスク No.1 リズム表示">
+          <div class="cycle-header">
+            <div>
+              <p class="eyebrow">Arabesque No.1</p>
+              <h2 id="arabesqueLabel">1小節</h2>
+            </div>
+            <output id="arabesqueRatioLabel" class="ratio-pill">1小節</output>
+          </div>
+          <div id="arabesqueTimeline" class="arabesque-timeline">
+            <div id="arabesquePlayhead" class="playhead" aria-hidden="true"></div>
+          </div>
+        </section>
+      </section>
     </main>
 
     <article class="seo-content" aria-label="ポリリズム練習の説明">
@@ -217,6 +252,10 @@
       <h3>メトロノームとしても使える</h3>
       <p>
         メトロノームモードでは、4分、8分、3連、16分などの細分を切り替えられます。BPMや拍子を保存できるので、日々の練習の出発点をすぐに再現できます。
+      </p>
+      <h3>ドビュッシー「アラベスクNo.1」の練習</h3>
+      <p>
+        Arabesque No.1モードでは、小節を選んで右手と左手のリズムだけを鳴らせます。音程ではなく発音位置に集中できるので、3連符と左手の流れを体で覚える練習に向いています。
       </p>
     </article>
 

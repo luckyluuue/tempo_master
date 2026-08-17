@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#121314">
-    <meta name="description" content="Practice 3:2, 4:3, and other polyrhythms with separate right and left hand sounds. Includes a metronome for piano and rhythm training.">
-    <title>Polyrhythm Practice Tool | 3:2 Metronome Trainer - PolyPulse Practice</title>
-    <meta property="og:title" content="Polyrhythm Practice Tool - PolyPulse Practice">
-    <meta property="og:description" content="Practice 3:2, 4:3, and other polyrhythms with separate right and left hand sounds.">
+    <meta name="description" content="Practice Debussy Arabesque No.1 rhythms, 3:2 and 4:3 polyrhythms, and metronome subdivisions with separate right and left hand sounds.">
+    <title>Arabesque No.1 and Polyrhythm Practice Tool | 3:2 Metronome Trainer - PolyPulse Practice</title>
+    <meta property="og:title" content="Arabesque No.1 and Polyrhythm Practice Tool - PolyPulse Practice">
+    <meta property="og:description" content="Practice Debussy Arabesque No.1 and 3:2 polyrhythms with separate right and left hand sounds.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luckyluuue.github.io/tempo_master/en/">
     <link rel="canonical" href="https://luckyluuue.github.io/tempo_master/en/">
@@ -27,7 +27,7 @@
         "applicationCategory": "MusicApplication",
         "operatingSystem": "Web, Android",
         "url": "https://luckyluuue.github.io/tempo_master/en/",
-        "description": "A free browser tool for practicing 3:2, 4:3, and other polyrhythms with metronome subdivisions.",
+        "description": "A free browser tool for practicing Debussy Arabesque No.1 rhythms, 3:2 and 4:3 polyrhythms, and metronome subdivisions.",
         "inLanguage": "en",
         "isAccessibleForFree": true
       }
@@ -68,6 +68,7 @@
       <section class="app-mode-tabs" aria-label="Practice mode">
         <button class="tab-button is-active" type="button" data-app-mode="poly" aria-pressed="true">Polyrhythm</button>
         <button class="tab-button" type="button" data-app-mode="metronome" aria-pressed="false">Metronome</button>
+        <button class="tab-button" type="button" data-app-mode="arabesque" aria-pressed="false">Arabesque No.1</button>
       </section>
 
       <section id="polyrhythmView" class="practice-view is-active" aria-label="Polyrhythm practice">
@@ -197,6 +198,40 @@
           </div>
         </section>
       </section>
+
+      <section id="arabesqueView" class="practice-view" aria-label="Arabesque No.1 practice">
+        <section class="mode-strip" aria-label="Hands to play">
+          <button class="mode-button is-active" type="button" data-play-mode="both" aria-pressed="true">Both</button>
+          <button class="mode-button" type="button" data-play-mode="right" aria-pressed="false">Right only</button>
+          <button class="mode-button" type="button" data-play-mode="left" aria-pressed="false">Left only</button>
+        </section>
+
+        <section class="arabesque-panel">
+          <div class="arabesque-controls">
+            <label class="field">
+              <span>Start bar</span>
+              <select id="arabesqueStartMeasure"></select>
+            </label>
+            <label class="field">
+              <span>Loop</span>
+              <input id="arabesqueLoopMeasures" class="number-input" type="number" min="1" max="16" step="1" value="1">
+            </label>
+          </div>
+        </section>
+
+        <section class="visual-band" aria-label="Arabesque No.1 rhythm display">
+          <div class="cycle-header">
+            <div>
+              <p class="eyebrow">Arabesque No.1</p>
+              <h2 id="arabesqueLabel">Bar 1</h2>
+            </div>
+            <output id="arabesqueRatioLabel" class="ratio-pill">1 bar</output>
+          </div>
+          <div id="arabesqueTimeline" class="arabesque-timeline">
+            <div id="arabesquePlayhead" class="playhead" aria-hidden="true"></div>
+          </div>
+        </section>
+      </section>
     </main>
 
     <article class="seo-content" aria-label="About polyrhythm practice">
@@ -216,6 +251,10 @@
       <h3>Built-in metronome</h3>
       <p>
         The metronome mode supports quarter notes, eighth notes, triplets, sixteenth notes, and sextuplets. Tempo, meter, sounds, and practice settings are saved in the browser so you can resume quickly.
+      </p>
+      <h3>Debussy Arabesque No.1 practice</h3>
+      <p>
+        Arabesque No.1 mode plays only the right and left hand rhythm positions from a selected bar. It keeps the focus on timing, so you can internalize the triplet layer against the left hand motion.
       </p>
     </article>
 
