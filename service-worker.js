@@ -1,4 +1,4 @@
-const CACHE_NAME = "polypulse-practice-v22";
+const CACHE_NAME = "polypulse-practice-v23";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -22,6 +22,7 @@ const APP_ASSETS = [
   "./robots.txt",
   "./sitemap.xml",
   "./assets/scores/Arabesque_no1.pdf",
+  "./assets/scores/images/arabesque-page-1.png",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/maskable-512.png",

@@ -1,13 +1,5 @@
 const beatsPerMeasure = 4;
 
-function evenlySpaced(count) {
-  return Array.from({ length: count }, (_, index) => (beatsPerMeasure * index) / count);
-}
-
-function repeatPerBeat(countPerBeat) {
-  return Array.from({ length: beatsPerMeasure * countPerBeat }, (_, index) => index / countPerBeat);
-}
-
 function measure(number, right, left, note) {
   return {
     number,
@@ -18,62 +10,48 @@ function measure(number, right, left, note) {
   };
 }
 
-const threeAgainstTwo = {
-  right: repeatPerBeat(3),
-  left: repeatPerBeat(2),
-};
-
-const flowingSixteenths = {
-  right: repeatPerBeat(3),
-  left: repeatPerBeat(4),
-};
-
-const openingPulse = {
-  right: repeatPerBeat(3),
-  left: evenlySpaced(6),
-};
-
 export const arabesqueMeasures = [
-  measure(1, openingPulse.right, openingPulse.left, "Opening 3-over-2 feel"),
-  measure(2, openingPulse.right, openingPulse.left, "Opening 3-over-2 feel"),
-  measure(3, threeAgainstTwo.right, threeAgainstTwo.left, "Triplets against eighth notes"),
-  measure(4, threeAgainstTwo.right, threeAgainstTwo.left, "Triplets against eighth notes"),
-  measure(5, flowingSixteenths.right, flowingSixteenths.left, "Triplets against flowing left hand"),
-  measure(6, flowingSixteenths.right, flowingSixteenths.left, "Triplets against flowing left hand"),
-  measure(7, threeAgainstTwo.right, threeAgainstTwo.left, "Arabesque 3:2 practice passage"),
-  measure(8, threeAgainstTwo.right, threeAgainstTwo.left, "Arabesque 3:2 practice passage"),
-  measure(9, threeAgainstTwo.right, threeAgainstTwo.left, "Arabesque 3:2 practice passage"),
-  measure(10, threeAgainstTwo.right, threeAgainstTwo.left, "Arabesque 3:2 practice passage"),
-  measure(11, flowingSixteenths.right, flowingSixteenths.left, "Triplets against flowing left hand"),
-  measure(12, flowingSixteenths.right, flowingSixteenths.left, "Triplets against flowing left hand"),
-  measure(13, repeatPerBeat(3), repeatPerBeat(3), "Matched triplet texture"),
-  measure(14, repeatPerBeat(2), repeatPerBeat(3), "Eighth notes against triplets"),
-  measure(15, repeatPerBeat(2), repeatPerBeat(3), "Eighth notes against triplets"),
-  measure(16, repeatPerBeat(3), repeatPerBeat(2), "3:2 cadence practice"),
+  measure(1, [1, 1.333333, 1.666667, 2, 2.333333, 2.666667], [0, 0.333333, 0.666667, 3, 3.333333, 3.666667], "MusicXML rhythm"),
+  measure(2, [1, 1.333333, 1.666667, 2, 2.333333, 2.666667], [0, 0.333333, 0.666667, 3, 3.333333, 3.666667], "MusicXML rhythm"),
+  measure(3, [1, 1.333333, 1.666667, 2, 3, 3.333333, 3.666667], [0, 0.333333, 0.666667, 2, 2.333333, 2.666667], "MusicXML rhythm"),
+  measure(4, [1, 1.333333, 1.666667, 2, 3, 3.333333, 3.666667], [0, 0.333333, 0.666667, 2, 2.333333, 2.666667], "MusicXML rhythm"),
+  measure(5, [1, 3.333333, 3.666667], [0, 0.333333, 0.666667, 1, 1.333333, 1.666667, 2, 2.333333, 2.666667, 3, 3.333333, 3.666667], "MusicXML rhythm"),
+  measure(6, [1, 1.333333, 1.666667, 2, 2.333333, 2.666667, 3, 3.333333, 3.666667], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(7, [0, 0.333333, 0.666667, 1, 3], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(8, [0, 1, 1.333333, 1.666667, 2, 2.333333, 2.666667, 3, 3.333333, 3.666667], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(9, [0, 0.333333, 0.666667, 1, 3], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(10, [0, 0.333333, 0.666667, 1, 2.5, 3, 3.5], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(11, [0, 1, 3], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(12, [0, 0.333333, 0.666667, 1, 2.5, 3, 3.5], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(13, [0, 1, 3, 3.333333, 3.666667], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(14, [0, 1, 3, 3.333333, 3.666667], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(15, [0, 1.5, 2, 3.5], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
+  measure(16, [0, 1.5, 2, 2.5, 3.5], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5], "MusicXML rhythm"),
 ];
 
 export const arabesqueScorePages = [
   {
     number: 1,
-    width: 496,
-    height: 690,
+    width: 2678,
+    height: 3789,
+    image: "../assets/scores/images/arabesque-page-1.png",
     measures: [
-      { number: 1, x: 11.5, y: 12.5, width: 19, height: 19 },
-      { number: 2, x: 30.5, y: 12.5, width: 18, height: 19 },
-      { number: 3, x: 48.5, y: 12.5, width: 22, height: 19 },
-      { number: 4, x: 70.5, y: 12.5, width: 19, height: 19 },
-      { number: 5, x: 8.5, y: 35.5, width: 23, height: 18 },
-      { number: 6, x: 31.5, y: 35.5, width: 19, height: 18 },
-      { number: 7, x: 50.5, y: 35.5, width: 20, height: 18 },
-      { number: 8, x: 70.5, y: 35.5, width: 21, height: 18 },
-      { number: 9, x: 8.5, y: 57, width: 22, height: 18 },
-      { number: 10, x: 30.5, y: 57, width: 20, height: 18 },
-      { number: 11, x: 50.5, y: 57, width: 20, height: 18 },
-      { number: 12, x: 70.5, y: 57, width: 21, height: 18 },
-      { number: 13, x: 8.5, y: 78, width: 20, height: 18 },
-      { number: 14, x: 28.5, y: 78, width: 21, height: 18 },
-      { number: 15, x: 49.5, y: 78, width: 21, height: 18 },
-      { number: 16, x: 70.5, y: 78, width: 21, height: 18 },
+      { number: 1, x: 22, y: 16.2, width: 17.5, height: 16.6 },
+      { number: 2, x: 39.5, y: 16.2, width: 19.1, height: 16.6 },
+      { number: 3, x: 58.6, y: 16.2, width: 17.6, height: 16.6 },
+      { number: 4, x: 76.2, y: 16.2, width: 17.2, height: 16.6 },
+      { number: 5, x: 8.4, y: 37.4, width: 27.1, height: 16.3 },
+      { number: 6, x: 35.5, y: 37.4, width: 19.4, height: 16.3 },
+      { number: 7, x: 54.9, y: 37.4, width: 18.7, height: 16.3 },
+      { number: 8, x: 73.6, y: 37.4, width: 19.8, height: 16.3 },
+      { number: 9, x: 8.4, y: 58.6, width: 25.6, height: 16 },
+      { number: 10, x: 34, y: 58.6, width: 20.1, height: 16 },
+      { number: 11, x: 54.1, y: 58.6, width: 19.7, height: 16 },
+      { number: 12, x: 73.8, y: 58.6, width: 19.6, height: 16 },
+      { number: 13, x: 8.4, y: 80.2, width: 26.3, height: 15.1 },
+      { number: 14, x: 34.7, y: 80.2, width: 19.8, height: 15.1 },
+      { number: 15, x: 54.5, y: 80.2, width: 19.6, height: 15.1 },
+      { number: 16, x: 74.1, y: 80.2, width: 19.3, height: 15.1 },
     ],
   },
 ];
