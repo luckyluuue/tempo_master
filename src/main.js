@@ -91,7 +91,13 @@ window.addEventListener("beforeunload", () => {
   window.cancelAnimationFrame(animationFrame);
 });
 
-if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
+const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+
+if ("serviceWorker" in navigator && isLocalPreview) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => registration.unregister());
+  });
+} else if ("serviceWorker" in navigator && window.location.protocol.startsWith("http")) {
   navigator.serviceWorker.register(new URL("../service-worker.js", import.meta.url)).catch(() => {});
 }
 

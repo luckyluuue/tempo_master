@@ -1,4 +1,4 @@
-const CACHE_NAME = "polypulse-practice-v23";
+const CACHE_NAME = "polypulse-practice-v25";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const APP_ASSETS = [
   "./es/",
   "./es/index.html",
   "./styles.css",
+  "./styles.css?direct",
   "./app.js",
   "./src/main.js",
   "./src/i18n.js",
